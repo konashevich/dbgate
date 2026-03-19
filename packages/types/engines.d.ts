@@ -59,6 +59,7 @@ export interface QueryOptions {
   importSqlDump?: boolean;
   range?: { offset: number; limit: number };
   readonly?: boolean;
+  commandTimeout?: number;
 }
 
 export interface WriteTableOptions {
@@ -423,6 +424,10 @@ export interface EngineDriver<TClient = any, TDataBase = any> extends FilterBeha
     engine: string;
     conid?: string;
   };
+
+  setTransactionIsolationLevel?(dbhan: DatabaseHandle<TClient, TDataBase>, level: string): Promise<void>;
+  isolationLevels?: string[];
+  defaultIsolationLevel?: string;
 }
 
 export interface DatabaseModification {
